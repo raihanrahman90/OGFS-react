@@ -10,50 +10,45 @@
 
 import React from 'react';
 import {
+  SafeAreaView,
   StyleSheet,
   useColorScheme,
+  Text, View
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  LoginPage from './src/component/pages/login';
 import SignUpPage from './src/component/pages/signup';
-import {
-  NativeBaseProvider,
-} from 'native-base';
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './src/reducer';
-
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
   const Stack = createNativeStackNavigator();
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   const store = createStore(reducers);
   return (
     <Provider store={store}>
-    <NativeBaseProvider>
-      <NavigationContainer>
-          <Stack.Navigator>        
-            <Stack.Screen          
-              name="Login"          
-              component={LoginPage}          
-              options={{ title: 'Welcome' }}        
-              />        
-            <Stack.Screen          
-              name="SignUp"          
-              component={SignUpPage}          
-              options={{ title: 'Welcome' }}        
-              />        
-            </Stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen          
+                name="Login"          
+                component={LoginPage}
+                options={{
+                  headerShown:false
+                }}               
+                />        
+              <Stack.Screen          
+                name="SignUp"          
+                component={SignUpPage}         
+                options={{
+                  headerShown:false
+                }}                 
+                />        
+              </Stack.Navigator>
+        </NavigationContainer>
+      </ApplicationProvider>
     </Provider>
   );
 };
@@ -75,6 +70,9 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+  fontsans:{
+    fontFamily: "opensans-regular"
+  }
 });
 
 export default App;

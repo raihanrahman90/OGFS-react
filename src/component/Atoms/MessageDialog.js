@@ -1,29 +1,17 @@
-import {Modal, FormControl, Button} from 'native-base';
-import React, {Component} from 'react';
-export const MessageDialog = (message, show)=>{
-    const [showModal, setShowModal] = React.useState(show);
-    return(
-    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <Modal.Content maxWidth="400px">
-          <Modal.CloseButton />
-          <Modal.Header>Alert</Modal.Header>
-          <Modal.Body>
-            <FormControl mt="3">
-              <FormControl.Label>{message}</FormControl.Label>
-            </FormControl>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
-              <Button
-                onPress={() => {
-                  setShowModal(false)
-                }}
-              >
-                Ok
-              </Button>
-            </Button.Group>
-          </Modal.Footer>
-        </Modal.Content>
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Button, Card, Layout, Modal, Text } from '@ui-kitten/components'
+
+const messageModal = ({message, visible})=>{
+  return(
+      <Modal visible={visible}>
+        <Card disabled={true}>
+          <Text>{message}</Text>
+          <Button onPress={() => setVisible(false)}>
+            Ok
+          </Button>
+        </Card>
       </Modal>
-    )
+  );
 }
+export default messageModal;
